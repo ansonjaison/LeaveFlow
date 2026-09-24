@@ -1,3 +1,6 @@
+
+<h1 align="center">LeaveFlow</h1>
+<p align="center"><strong>A modern, full-stack Employee Leave Management System</strong></p>
 <div align="center">
   <img src="https://img.shields.io/badge/Spring_Boot-3.3.4-6DB33F?style=for-the-badge&logo=springboot&logoColor=white" alt="Spring Boot" />
   <img src="https://img.shields.io/badge/Java-17-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white" alt="Java 17" />
@@ -7,15 +10,18 @@
   <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker" />
 </div>
 
-<h1 align="center">LeaveFlow</h1>
-<p align="center"><strong>A modern, full-stack Employee Leave Management System</strong></p>
+<img width="1983" height="793" alt="LeaveFlow CoverImage" src="https://github.com/user-attachments/assets/57ebb006-cdc4-40c7-a4e0-076cf3f65862" />
 
-<div align="center">
-  <a href="https://leaveflow-dev.onrender.com/"><strong>🚀 View Live Demo</strong></a>
-</div>
+
+
+
 <br>
 
 LeaveFlow is a comprehensive Employee Leave Management System designed to simplify the process of requesting, tracking, and approving employee time-off. It provides separate portals for **Employees** and **Administrators**, enforcing business rules, automated leave balance deduction, and secure role-based access.
+
+<div align="center">
+  <a href="https://leaveflow-pdwv.onrender.com/"><strong>🚀 View Live Demo</strong></a>
+</div>
 
 ---
 
