@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login — LeaveFlow</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+    <div class="landing-wrapper">
+        <div class="landing-card">
+            <div class="logo-area">
+                <div class="logo-icon">LF</div>
+                <h1 class="app-name">LeaveFlow</h1>
+                <p class="app-subtitle">Employee Leave Management System</p>
+            </div>
+
+            <div id="loginMessage"></div>
+
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="loginEmail">Email Address</label>
+                    <input
+                        type="email"
+                        id="loginEmail"
+                        placeholder="you@example.com"
+                        required
+                        autocomplete="email"
+                    />
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input
+                        type="password"
+                        id="loginPassword"
+                        placeholder="Enter your password"
+                        required
+                        autocomplete="current-password"
+                    />
+                </div>
+                <button type="submit" id="loginBtn" class="btn btn-primary" style="width:100%; margin-top:8px;">
+                    Sign In
+                </button>
+            </form>
+
+            <p class="demo-note" style="margin-top:24px;">
+                Your credentials are provided by your system administrator.
+            </p>
+        </div>
+    </div>
+
+    <!-- Supabase JS SDK via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/common.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        async function handleLogin(event) {
+            event.preventDefault();
+            const errorDiv = document.getElementById('loginMessage');
+            const btn = document.getElementById('loginBtn');
+
+            const email    = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+
+            btn.disabled = true;
+            btn.textContent = 'Signing in...';
+            errorDiv.innerHTML = '';
+
+            await login(email, password, errorDiv);
+
+            // Re-enable button if login failed (login() redirects on success)
+            btn.disabled = false;
+            btn.textContent = 'Sign In';
+        }
+
+        // If user is already logged in, redirect them immediately
+        (async () => {
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            if (session) {
+                const role = localStorage.getItem('lf_role');
+                if (role === 'ADMIN')    window.location.href = 'admin.html';
+                if (role === 'EMPLOYEE') window.location.href = 'employee.html';
+            }
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Leave — LeaveFlow</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+    <header class="topbar">
+        <div class="topbar-inner">
+            <a href="#" class="topbar-brand">LeaveFlow</a>
+            <div style="display:flex; align-items:center; gap:16px;">
+                <span class="topbar-role role-employee">Employee</span>
+                <span id="empName" style="font-size:14px; color:var(--color-text-muted);"></span>
+                <button class="btn btn-outline" style="padding:6px 14px; font-size:13px;" onclick="logout()">
+                    Logout
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="page-content">
+
+        <!-- ===== Profile + Balance ===== -->
+        <section class="card" id="profileSection">
+            <h2 class="section-title">My Profile</h2>
+            <div class="profile-grid" id="profileGrid">
+                <p class="hint">Loading your profile...</p>
+            </div>
+            <div class="balance-box" id="balanceBox" style="display:none;">
+                <div class="balance-label">Available Leave Balance</div>
+                <div class="balance-number"><span id="pBalance">—</span> days</div>
+            </div>
+        </section>
+
+        <!-- ===== Apply Leave ===== -->
+        <section class="card" id="applySection" style="display:none;">
+            <h2 class="section-title">Apply for Leave</h2>
+
+            <div id="applyMessage"></div>
+
+            <!-- Live working-day preview shown as user picks dates -->
+            <div id="workingDayPreview" style="display:none;" class="working-day-preview">
+                <span id="wdCount">0</span> working day(s) selected
+                <span id="wdStatus"></span>
+            </div>
+
+            <form id="leaveForm" onsubmit="submitLeave(event)">
+                <div class="form-group">
+                    <label for="leaveType">Leave Type</label>
+                    <select id="leaveType" required>
+                        <option value="">-- Select --</option>
+                        <option value="CASUAL">Casual</option>
+                        <option value="SICK">Sick</option>
+                        <option value="ANNUAL">Annual</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="startDate">Start Date</label>
+                        <input type="date" id="startDate" required
+                               oninput="updateWorkingDayPreview()" />
+                    </div>
+                    <div class="form-group">
+                        <label for="endDate">End Date</label>
+                        <input type="date" id="endDate" required
+                               oninput="updateWorkingDayPreview()" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="reason">Reason</label>
+                    <textarea id="reason" rows="3" maxlength="500"
+                        placeholder="Brief reason for leave..." required></textarea>
+                </div>
+                <button type="submit" id="submitLeaveBtn" class="btn btn-primary">Apply Leave</button>
+            </form>
+        </section>
+
+        <!-- ===== Leave History ===== -->
+        <section class="card" id="historySection" style="display:none;">
+            <div class="section-header">
+                <h2 class="section-title">Leave History</h2>
+                <button class="btn btn-outline" onclick="loadLeaveHistory()">Refresh</button>
+            </div>
+            <div id="leaveHistoryContainer">
+                <p class="hint">Loading...</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Supabase JS SDK via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/common.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/employee.js"></script>
+</body>
+</html>
